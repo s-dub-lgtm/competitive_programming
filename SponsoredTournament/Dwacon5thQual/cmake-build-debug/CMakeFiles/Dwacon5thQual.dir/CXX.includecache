@@ -1,0 +1,12 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/suzukishouta/CompetitiveProgramming/SponsoredTournament/Dwacon5thQual/b.cpp
+bits/stdc++.h
+-
+
