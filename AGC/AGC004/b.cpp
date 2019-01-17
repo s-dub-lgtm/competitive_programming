@@ -11,7 +11,7 @@ using ll = long long;
 #define ALL(v) (v).begin(),(v).end()
 #define SP cout<<fixed<<setprecision(10)
 typedef pair<int, int> P;
-const int inf = (int) 1e9;
+const ll inf = (ll) 1e18;
 const int mod = (int) 1e9 + 7;
 
 template<class T>
@@ -44,47 +44,25 @@ int main(void) {
 	int n;
 	ll x;
 	cin >> n >> x;
-	ll a[n];
-	rep(i, n) cin >> a[i];
-	
-	int min_index = 0;
-	ll min_value = inf;
+	ll a[n], b[n];
 	rep(i, n) {
-		if (a[i] < min_value) {
-			min_value = a[i];
-			min_index = i;
-		}
+		cin >> a[i];
+		b[i] = a[i];
 	}
 	
-	
-	bool get[n];
-	get[min_index] = true;
-	
-	rep(i, 2 * n) {
-		int index = i + min_index;
-		if (get[index % n]) {
-			if (a[(index + 1) % n] < a[index % n] + x) {
-				get[(index + 1) % n] = true;
-			} else {
-				get[(index + 1) % n] = false;
-				a[(index + 1) % n] = a[index % n] + x;
-			}
-		} else {
-			if (a[(index + 1) % n] < a[index % n]) {
-				get[(index + 1) % n] = true;
-			} else {
-				get[(index + 1) % n] = false;
-				a[(index + 1) % n] = a[index % n];
-			}
-		}
-	}
-	
-	ll sum = 0;
+	ll ans = inf;
 	rep(i, n) {
-		sum += a[i];
+		rep(j, n) {
+			b[j] = min(b[j], a[(j - i + n) % n]);
+		}
+		ll time = x * i;
+		rep(j, n) {
+			time += b[j];
+		}
+		ans = min(ans, time);
 	}
 	
-	cout << sum << endl;
+	cout << ans << endl;
 	
 	return 0;
 }
