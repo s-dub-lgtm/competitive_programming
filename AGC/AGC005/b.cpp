@@ -43,22 +43,25 @@ int main(void) {
 	
 	int n;
 	cin >> n;
-	ll a[n + 1];
-	rep(i, n)cin >> a[i];
-	a[n] = 0;
+	ll a[n];
+	int pos[n];
+	rep(i, n) {
+		cin >> a[i];
+		pos[a[i] - 1] = i;
+	}
+	
+	set<int> st;
+	st.insert(-1);
+	st.insert(n);
 	
 	ll sum = 0;
-	ll before_sum = 0;
 	rep(i, n) {
-		if (a[n - i - 1] > a[n - i]) {
-			sum += a[n - i - 1];
-			sum += before_sum;
-			before_sum = sum - before_sum;
-		} else {
-			sum += a[n - i - 1] * (n - i);
-			before_sum = sum - before_sum;
-		}
-		cout << sum << " " << before_sum << endl;
+		auto iter = st.lower_bound(pos[i]);
+		ll right = (*iter) - pos[i];
+		iter--;
+		ll left = pos[i] - (*iter);
+		sum += a[pos[i]] * left * right;
+		st.insert(pos[i]);
 	}
 	
 	cout << sum << endl;
