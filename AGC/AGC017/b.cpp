@@ -5,7 +5,7 @@ using namespace std;
 using ll = long long;
 #define FOR(i, a, b) for(int i=(a);i<(b);++i)
 #define FORE(i, a, b) for(int i=(a);i<=(b);++i)
-#define rep(i, n) for(int i=0;i<(n);++i)
+#define rep(i, n) for(ll i=0;i<(n);++i)
 #define repe(i, n) for(int i=0;i<=(n);++i)
 #define ALL(v) (v).begin(),(v).end()
 #define SP cout<<fixed<<setprecision(10)
@@ -23,35 +23,14 @@ int main(void) {
 	ll a, b, c, d;
 	cin >> n >> a >> b >> c >> d;
 	
-	if (b > a + (n - 1) * d or b < a - (n - 1) * d) {
-		cout << "NO" << endl;
-		return 0;
-	}
-	
-	if (2 * c - (n - 2) * (d - c) <= 0) {
-		cout << "YES" << endl;
-		return 0;
-	}
-	
-	cout << "mid" << endl;
-	
-	ll top = a + (n - 1) * d;
-	rep(i, 2 * n - 1) {
-		cout << top << endl;
-		if (i % 2 == 0) {
-			top -= (n - 1) * (d - c);
-			if (b >= top) {
-				cout << "YES" << endl;
-				return 0;
-			}
-		} else {
-			top -= (2 * c) - (n - 2) * (d - c);
-			if (b >= top) {
-				cout << "NO" << endl;
-				return 0;
-			}
+	rep(i, n) {
+		if (c * (n - 1 - i) - d * i <= b - a and b - a <= -c * i + (n - 1 - i) * d) {
+			cout << "YES" << endl;
+			return 0;
 		}
 	}
+	
+	cout << "NO" << endl;
 	
 	return 0;
 }
