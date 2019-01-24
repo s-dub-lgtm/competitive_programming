@@ -1,47 +1,23 @@
-#include <iostream>
-#include <cmath>
-#include <algorithm>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 using ll = long long;
-
 #define FOR(i, a, b) for(int i=(a);i<(b);++i)
-#define REP(i, n) for(ll i=0;i<(n);++i)
+#define FORE(i, a, b) for(int i=(a);i<=(b);++i)
+#define rep(i, n) for(int i=0;i<(n);++i)
+#define repe(i, n) for(int i=0;i<=(n);++i)
 #define ALL(v) (v).begin(),(v).end()
-
+#define SP cout<<fixed<<setprecision(10)
 typedef pair<int, int> P;
-
-template<class T>
-bool chmax(T &a, const T &b) {
-	if (a < b) {
-		a = b;
-		return 1;
-	}
-	return 0;
-}
-
-template<class T>
-bool chmin(T &a, const T &b) {
-	if (b < a) {
-		a = b;
-		return 1;
-	}
-	return 0;
-}
+const int INF = (int) 1e9;
+const int MOD = (int) 1e9 + 7;
 
 int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 
-int dx[4] = {1, 0, -1, 0};
-int dy[4] = {0, 1, 0, -1};
-
-ll tensum(ll n) {
-	ll sum = 0;
-	while (n > 0) {
-		sum += n % 10;
-		n /= 10;
-	}
-	return sum;
+ll s(ll n) {
+	if (n == 0) return 0;
+	return n % 10 + s(n / 10);
 }
 
 int main(void) {
@@ -50,33 +26,21 @@ int main(void) {
 	
 	ll k;
 	cin >> k;
-//	ll ans[k + 1];
 	
-	if (k <= 9) {
-		REP(i, k) {
-			cout << i + 1 << endl;
-		}
-	} else {
-		REP(i, 9) {
-			cout << i + 1 << endl;
-//			ans[i] = i + 1;
-		}
-		
-		ll res = k - 9;
-		ll ninenum = 1;
-		ll ans = 9;
-		for (ll i = 0; i < res; ++i) {
-			if (ans + (ll) pow(10, ninenum) <= (ninenum) * pow(10, ninenum + 1)) {
-				ans += (ll) pow(10, ninenum);
-			} else {
-				ninenum++;
-				ans += (ll) pow(10, ninenum);
-			}
-//			cout<<ninenum<<endl;
-			cout << ans << endl;
+	ll x=1;
+	ll p=1;
+	while(k>0){
+		cout<<x<<endl;
+		k--;
+		ll nx1=x+p;
+		ll nx2=x+p*10;
+		if(nx1*s(nx2) <= nx2*s(nx1)){
+			x = nx1;
+		} else {
+			x = nx2;
+			p *= 10;
 		}
 	}
-	
 	
 	return 0;
 }
